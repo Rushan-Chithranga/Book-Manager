@@ -1,0 +1,100 @@
+<div class="bg-white rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
+
+  <div class="bg-gradient-to-br from-indigo-900 to-indigo-500 text-white px-7 py-6 flex items-center gap-4">
+
+    <div class="text-3xl">
+      <mat-icon>{{ isEditing ? 'edit' : 'menu_book' }}</mat-icon>
+    </div>
+
+    <div>
+      <h2 class="text-lg font-bold">
+        {{ isEditing ? 'Edit Book' : 'Add New Book' }}
+      </h2>
+      <p class="text-sm opacity-75 mt-1">
+        {{ isEditing ? 'Update the book details below' : 'Fill in the details for the new book' }}
+      </p>
+    </div>
+
+  </div>
+
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" class="p-7">
+
+    <div class="grid grid-cols-2 gap-5 mb-7">
+
+      <div class="flex flex-col gap-1 col-span-2">
+        <label class="text-xs font-semibold uppercase tracking-wide text-gray-700">
+          Book Title *
+        </label>
+
+        <input type="text" formControlName="title" placeholder="e.g. The Great Gatsby"
+          class="px-4 py-3 border-2 border-gray-200 rounded-lg text-sm text-gray-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition"
+          [class.border-red-500]="f['title'].invalid && f['title'].touched" />
+
+        <span class="text-xs text-red-500 font-medium" *ngIf="f['title'].invalid && f['title'].touched">
+          {{ f['title'].errors?.['required'] ? 'Title is required' : 'Title must be at least 2 characters' }}
+        </span>
+      </div>
+
+      <div class="flex flex-col gap-1 col-span-2">
+        <label class="text-xs font-semibold uppercase tracking-wide text-gray-700">
+          Author *
+        </label>
+
+        <input type="text" formControlName="author" placeholder="e.g. F. Scott Fitzgerald"
+          class="px-4 py-3 border-2 border-gray-200 rounded-lg text-sm text-gray-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition"
+          [class.border-red-500]="f['author'].invalid && f['author'].touched" />
+
+        <span class="text-xs text-red-500 font-medium" *ngIf="f['author'].invalid && f['author'].touched">
+          {{ f['author'].errors?.['required'] ? 'Author is required' : 'Author must be at least 2 characters' }}
+        </span>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold uppercase tracking-wide text-gray-700">
+          ISBN *
+        </label>
+
+        <input type="text" formControlName="isbn" placeholder="e.g. 978-0132350884"
+          class="px-4 py-3 border-2 border-gray-200 rounded-lg text-sm text-gray-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition"
+          [class.border-red-500]="f['isbn'].invalid && f['isbn'].touched" />
+
+        <span class="text-xs text-red-500 font-medium" *ngIf="f['isbn'].invalid && f['isbn'].touched">
+          Enter a valid ISBN
+        </span>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold uppercase tracking-wide text-gray-700">
+          Publication Date *
+        </label>
+
+        <input type="date" formControlName="publicationDate"
+          class="px-4 py-3 border-2 border-gray-200 rounded-lg text-sm text-gray-700 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition"
+          [class.border-red-500]="f['publicationDate'].invalid && f['publicationDate'].touched" />
+
+        <span class="text-xs text-red-500 font-medium"
+          *ngIf="f['publicationDate'].invalid && f['publicationDate'].touched">
+          Publication date is required
+        </span>
+      </div>
+
+    </div>
+
+    <div class="flex gap-3 justify-end pt-2 border-t border-gray-100">
+
+      <button type="button" (click)="onCancel()"
+        class="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-indigo-100 text-indigo-600 font-semibold hover:bg-indigo-200 transition">
+        Cancel
+      </button>
+
+      <button type="submit"
+        class="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-400 text-white font-semibold shadow-lg hover:-translate-y-[1px] hover:shadow-xl transition">
+        <mat-icon>{{ isEditing ? 'save' : 'add' }}</mat-icon>
+        {{ isEditing ? 'Save Changes' : 'Add Book' }}
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
